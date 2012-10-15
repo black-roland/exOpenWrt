@@ -1,0 +1,25 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2012 OpenWrt.org
+
+START=50
+
+start_instance () {
+	local section="$1"
+	config_get address "$section" 'address'
+	config_get port    "$section" 'port'
+	
+	service_start /usr/sbin/dnscrypt-proxy -d \
+		-a ${address}:${port} \
+		-n 64 \
+		-u nobody
+}
+
+start() {
+	config_load 'dnscrypt-proxy'
+	config_foreach start_instance 'dnscrypt-proxy'
+}
+
+stop() {
+	service_stop /usr/sbin/dnscrypt-proxy
+}
+
