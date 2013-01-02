@@ -10,10 +10,13 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=dnscrypt-proxy
 PKG_VERSION:=1.2.0
 PKG_RELEASE:=2
+PKG_REV:=$(PKG_VERSION)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=https://github.com/downloads/opendns/dnscrypt-proxy/
-PKG_MD5SUM:=4e9f786852f058922fef7a3d164969e0
+PKG_SOURCE_URL:=git://github.com/opendns/dnscrypt-proxy.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE_PROTO:=git
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
