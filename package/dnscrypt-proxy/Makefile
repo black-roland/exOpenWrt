@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnscrypt-proxy
 PKG_VERSION:=1.2.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/downloads/opendns/dnscrypt-proxy/
@@ -56,6 +56,17 @@ define Build/Configure
 		--prefix=/usr \
 	)
 endef
+
+TARGET_CFLAGS += \
+	-fdata-sections \
+	-ffunction-sections
+
+TARGET_LDFLAGS += \
+	-Wl,-gc-sections
+
+MAKE_FLAGS += \
+	CFLAGS="$(TARGET_CFLAGS)" \
+	LDFLAGS="$(TARGET_LDFLAGS)"
 
 define Package/dnscrypt-proxy/install
 	$(INSTALL_DIR) $(1)/usr/sbin
