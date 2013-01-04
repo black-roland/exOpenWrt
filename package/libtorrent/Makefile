@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libtorrent
-PKG_VERSION:=0.13.2
+PKG_VERSION:=0.13.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://libtorrent.rakshasa.no/downloads
-PKG_MD5SUM:=96c0b81501357df402ab592f59ecaeab
+PKG_MD5SUM:=e94f6c590bb02aaf4d58618f738a85f2
 
 PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1

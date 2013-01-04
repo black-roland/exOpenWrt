@@ -1,17 +1,15 @@
-diff -uNrp libtorrent-0.13.2.orig/configure.ac libtorrent-0.13.2/configure.ac
---- libtorrent-0.13.2.orig/configure.ac	2012-04-20 16:55:10.000000000 +1000
-+++ libtorrent-0.13.2/configure.ac	2013-01-04 20:59:54.500457503 +1000
-@@ -17,7 +17,6 @@ AC_SUBST(LIBTORRENT_INTERFACE_VERSION_NO
+--- a/configure.ac
++++ b/configure.ac
+@@ -19,7 +19,6 @@ AC_SUBST(LIBTORRENT_INTERFACE_VERSION_NO
  
  AM_INIT_AUTOMAKE
  AM_CONFIG_HEADER(config.h)
 -AM_PATH_CPPUNIT(1.9.6)
- AC_DISABLE_STATIC
  
- AM_DISABLE_STATIC
-diff -uNrp libtorrent-0.13.2.orig/scripts/checks.m4 libtorrent-0.13.2/scripts/checks.m4
---- libtorrent-0.13.2.orig/scripts/checks.m4	2012-04-12 19:44:23.000000000 +1000
-+++ libtorrent-0.13.2/scripts/checks.m4	2013-01-04 21:00:58.758322899 +1000
+ AC_PROG_CXX
+ 
+--- a/scripts/checks.m4
++++ b/scripts/checks.m4
 @@ -96,7 +96,7 @@ AC_DEFUN([TORRENT_CHECK_KQUEUE], [
  AC_DEFUN([TORRENT_CHECK_KQUEUE_SOCKET_ONLY], [
    AC_MSG_CHECKING(whether kqueue supports pipes and ptys)
@@ -21,9 +19,8 @@ diff -uNrp libtorrent-0.13.2.orig/scripts/checks.m4 libtorrent-0.13.2/scripts/ch
        #include <fcntl.h>
        #include <stdlib.h>
        #include <unistd.h>
-diff -uNrp libtorrent-0.13.2.orig/scripts/common.m4 libtorrent-0.13.2/scripts/common.m4
---- libtorrent-0.13.2.orig/scripts/common.m4	2012-03-29 23:02:59.000000000 +1000
-+++ libtorrent-0.13.2/scripts/common.m4	2013-01-04 21:01:30.337256988 +1000
+--- a/scripts/common.m4
++++ b/scripts/common.m4
 @@ -223,7 +223,7 @@ dnl   Need to fix this so that it uses t
  AC_DEFUN([TORRENT_CHECK_EXECINFO], [
    AC_MSG_CHECKING(for execinfo.h)
