@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libtorrent
 PKG_VERSION:=0.13.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://libtorrent.rakshasa.no/downloads
@@ -47,6 +47,7 @@ CONFIGURE_ARGS+= \
 	--enable-aligned \
 	--disable-debug \
 	--enable-openssl \
+	--with-posix-fallocate \
 
 define Build/Configure
 	( cd $(PKG_BUILD_DIR); ./autogen.sh );
