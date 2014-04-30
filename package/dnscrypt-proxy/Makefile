@@ -1,22 +1,12 @@
-#
-# Copyright (C) 2012 OpenWrt.org
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnscrypt-proxy
-PKG_VERSION:=1.2.1
+PKG_VERSION:=1.4.0
 PKG_RELEASE:=1.E
-PKG_REV:=$(PKG_VERSION)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=git://github.com/opendns/dnscrypt-proxy.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=http://download.dnscrypt.org/dnscrypt-proxy
+PKG_MD5SUM:=40b5b73f5042330b86084460d7c839c6
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -27,8 +17,9 @@ define Package/dnscrypt-proxy/Default
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=IP Addresses and Names
-  URL:=https://github.com/opendns/dnscrypt-proxy
-  MAINTAINER:=Black Roland https://forum.openwrt.org/profile.php?id=82621
+  DEPENDS:=+libsodium
+  URL:=http://dnscrypt.org/
+  MAINTAINER:=Black Roland https://github.com/black-roland/exOpenWrt
 endef
 
 define Package/dnscrypt-proxy
@@ -37,26 +28,28 @@ define Package/dnscrypt-proxy
 endef
 
 define Package/dnscrypt-proxy/description
-	The DNSCrypt protocol is very similar to DNSCurve, but focuses on
-	securing communications between a client and its first-level resolver.
-	While not providing end-to-end security, it protects the local network
-	(which is often the weakest link in the chain) against
-	man-in-the-middle attacks. It also provides some confidentiality to
-	DNS queries.
+	dnscrypt-proxy provides local service which can be used directly as your
+	local resolver or as a DNS forwarder, encrypting and authenticating requests
+	using the DNSCrypt protocol and passing them to an upstream server.
+	The DNSCrypt protocol uses high-speed high-security elliptic-curve cryptography
+	and is very similar to DNSCurve, but focuses on securing communications between
+	a client and its first-level resolver.
 endef
 
 define Package/hostip
   $(call Package/dnscrypt-proxy/Default)
-  TITLE:=A tool for resolving a name to IPv4 or IPv6 addresses
+  TITLE:=Resolver to IPv4 or IPv6 addresses
 endef
 
 define Package/hostip/description
-	Sends a DNS query to a resolver, and prints the IP addresses for the given host name.
+	The DNSCrypt proxy ships with a simple tool named hostip that resolves a name
+	to IPv4 or IPv6 addresses.
 endef
 
 define Build/Configure
 	$(call Build/Configure/Default, \
 		--prefix=/usr \
+		--disable-ssp \
 	)
 endef
 
@@ -74,6 +67,8 @@ MAKE_FLAGS += \
 define Package/dnscrypt-proxy/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(CP) $(PKG_INSTALL_DIR)/usr/sbin/dnscrypt-proxy $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/usr/share/dnscrypt-proxy
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv $(1)/usr/share/dnscrypt-proxy/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/dnscrypt-proxy.init $(1)/etc/init.d/dnscrypt-proxy
 	$(INSTALL_DIR) $(1)/etc/config
@@ -91,3 +86,4 @@ endef
 
 $(eval $(call BuildPackage,dnscrypt-proxy))
 $(eval $(call BuildPackage,hostip))
+
