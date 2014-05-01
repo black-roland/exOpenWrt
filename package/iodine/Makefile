@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=iodine
 PKG_VERSION:=0.6.0-rc1
-PKG_RELEASE:=5.E
+PKG_RELEASE:=6.E
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://code.kryo.se/iodine/
@@ -21,7 +21,7 @@ define Package/iodine/Default
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=Firewall Tunnel
-  DEPENDS:= +kmod-tun +zlib
+  DEPENDS:=+zlib #+kmod-tun
   TITLE:=IP over DNS tunneling
   URL:=http://code.kryo.se/iodine/
 endef
