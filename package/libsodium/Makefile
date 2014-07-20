@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libsodium
-PKG_VERSION:=0.4.5
+PKG_VERSION:=0.6.1
 PKG_RELEASE:=1.E
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.dnscrypt.org/libsodium/releases
-PKG_MD5SUM:=3a97d2c29ec0133e334036e3f19d0741
+PKG_MD5SUM:=894da0e07a715dd8e44f8b3486093e70
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -37,7 +37,8 @@ endef
 
 CONFIGURE_ARGS += \
 	--disable-ssp \
-	--disable-asm
+	--disable-asm \
+	--enable-minimal
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include $(1)/usr/lib
