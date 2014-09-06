@@ -13,6 +13,10 @@ Add third-party source to your opkg configuration file */etc/opkg.conf*:
 
     src/gz exopenwrt http://exopenwrt.and.in.net/trunk/ar71xx/packages/exOpenWrt
 
+**Barrier Breaker**
+
+    src/gz exopenwrt http://exopenwrt.and.in.net/barrier_breaker/ar71xx/packages/exOpenWrt
+
 **Attitude Adjustment**
 
     src/gz exopenwrt http://exopenwrt.and.in.net/attitude_adjustment/ar71xx/packages
