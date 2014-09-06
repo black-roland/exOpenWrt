@@ -9,7 +9,13 @@ OpenWrt repository with additional and custom packages.
 ## Software repository for ar71xx devices ##
 Add third-party source to your opkg configuration file */etc/opkg.conf*:
 
-    src/gz exopenwrt http://exopenwrt.and.in.net/ar71xx/packages
+**trunk**
+
+    src/gz exopenwrt http://exopenwrt.and.in.net/trunk/ar71xx/packages/exOpenWrt
+
+**Attitude Adjustment**
+
+    src/gz exopenwrt http://exopenwrt.and.in.net/attitude_adjustment/ar71xx/packages
 
 And update list of available packages:
 
