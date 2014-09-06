@@ -5,12 +5,16 @@ START=50
 
 start_instance () {
 	local section="$1"
-	config_get port     "$section" 'port'
+	config_get address  "$section" 'address'
 	config_get password "$section" 'password'
 	config_get tunnelip "$section" 'tunnelip'
 	config_get tld      "$section" 'tld'
+	config_get port     "$section" 'port'
 	
-	service_start /usr/sbin/iodined -u nobody -p "$port" -P "$password" "$tunnelip" "$tld"
+	test -n "$address" || address='0.0.0.0'
+	test -n "$port" || port='53'
+
+	service_start /usr/sbin/iodined -l "$address" -P "$password" -p "$port" "$tunnelip" "$tld"
 }
 
 start() {

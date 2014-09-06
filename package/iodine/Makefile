@@ -8,12 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=iodine
-PKG_VERSION:=0.6.0-rc1
-PKG_RELEASE:=6.E
+PKG_VERSION:=0.7.0
+PKG_RELEASE:=1.E
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://code.kryo.se/iodine/
-PKG_MD5SUM:=a15bb4faba020d217016fde6e231074a
+PKG_MD5SUM:=fdbf3b81cd69caf5230d76a8b039fd99
+
+PKG_MAINTAINER:=Uwe Kleine-König <uwe+openwrt@kleine-koenig.org>
+PKG_LICENSE:=ISC
+PKG_LICENSE_FILES:=README
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -21,7 +25,7 @@ define Package/iodine/Default
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=Firewall Tunnel
-  DEPENDS:=+zlib #+kmod-tun
+  DEPENDS:= +zlib # +kmod-tun
   TITLE:=IP over DNS tunneling
   URL:=http://code.kryo.se/iodine/
 endef
