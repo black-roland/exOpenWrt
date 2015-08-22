@@ -13,7 +13,7 @@ start_instance () {
 		-a ${address}:${port} \
 		-u nobody \
 		-L ${resolvers_list:-'/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv'} \
-		-R ${resolver:-'opendns'}
+		-R ${resolver:-'cisco'}
 }
 
 start() {
