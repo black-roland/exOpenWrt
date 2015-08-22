@@ -2,11 +2,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnscrypt-proxy
 PKG_VERSION:=1.6.0
-PKG_RELEASE:=5.E
+PKG_RELEASE:=1.E
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://download.dnscrypt.org/dnscrypt-proxy
-PKG_MD5SUM:=fa1dad8e487ab587be06e1cbccb9cfcc
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://download.dnscrypt.org/dnscrypt-proxy/
+PKG_MD5SUM:=039b8106cf4e15302dc2487cb7fbb17b
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -19,7 +19,7 @@ define Package/dnscrypt-proxy/Default
   SUBMENU:=IP Addresses and Names
   DEPENDS:=+libsodium
   URL:=http://dnscrypt.org/
-  MAINTAINER:=Black Roland https://github.com/black-roland/exOpenWrt
+  MAINTAINER:=Black Roland (https://github.com/black-roland/exOpenWrt)
 endef
 
 define Package/dnscrypt-proxy
