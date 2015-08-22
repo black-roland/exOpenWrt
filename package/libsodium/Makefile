@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libsodium
-PKG_VERSION:=1.0.1
-PKG_RELEASE:=1.F
+PKG_VERSION:=1.0.3
+PKG_RELEASE:=1.E
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://download.dnscrypt.org/libsodium/releases
-PKG_MD5SUM:=9a221b49fba7281ceaaf5e278d0f4430
+PKG_SOURCE_URL:=https://download.libsodium.org/libsodium/releases/
+PKG_MD5SUM:=b3bcc98e34d3250f55ae196822307fab
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -25,7 +25,7 @@ define Package/libsodium
 	CATEGORY:=Libraries
 	TITLE:=Library for network communication, encryption, decryption, signatures, etc
 	URL:=https://github.com/jedisct1/libsodium
-	MAINTAINER:=Black Roland https://github.com/black-roland/exOpenWrt
+	MAINTAINER:=Black Roland (https://github.com/black-roland/exOpenWrt)
 endef
 
 define Package/libsodium/description
