@@ -4,7 +4,7 @@ OpenWrt repository with additional and custom packages.
 ## Packages
 [**dnscrypt-proxy**](http://dnscrypt.org/) — A tool for securing communications between a client and a DNS resolver.
 
-[**iodine**](http://code.kryo.se/iodine/) — Tunnel IPv4 over DNS. Added patch to reduce memory consumption. Depends on *kmod-tun* — install separately.
+[**iodine**](http://code.kryo.se/iodine/) — Tunnel IPv4 over DNS. Depends on *kmod-tun* — install manualy.
 
 ## Software repository for ar71xx devices
 **Chaos Calmer**
@@ -25,3 +25,10 @@ Update list of available packages:
 Install packages:
 
     $ opkg install dnscrypt-proxy
+
+## Differences with OpenWrt packages
+| Package        | Difference                                                                      |
+|----------------|---------------------------------------------------------------------------------|
+| dnscrypt-proxy | Newest version. Barrier Breaker support.                                        |
+| libsodium      | Newest version. Barrier Breaker support.                                        |
+| iodine         | Memory usage reduce patch. Info: https://github.com/yarrick/iodine#tips--tricks |
