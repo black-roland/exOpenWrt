@@ -4,7 +4,7 @@ OpenWrt repository with additional and custom packages.
 ## Packages
 [**dnscrypt-proxy**](https://dnscrypt.org/) — A tool for securing communications between a client and a DNS resolver.
 
-[**iodine**](http://code.kryo.se/iodine/) — Tunnel IPv4 over DNS. Depends on *kmod-tun* — install manualy.
+[**iodine**](http://code.kryo.se/iodine/) — Tunnel IPv4 over DNS. Depends on *kmod-tun* — install manually.
 
 ## Software repository for ar71xx devices
 **Chaos Calmer**
