@@ -29,6 +29,6 @@ Install packages:
 ## Differences with OpenWrt packages
 | Package        | Difference                                                                      |
 |----------------|---------------------------------------------------------------------------------|
-| dnscrypt-proxy | Newest version. Barrier Breaker support.                                        |
-| libsodium      | Newest version. Barrier Breaker support.                                        |
+| dnscrypt-proxy | Newest version for Chaos Calmer. Barrier Breaker support.                       |
+| libsodium      | Newest version for Chaos Calmer. Barrier Breaker support.                       |
 | iodine         | Memory usage reduce patch. Info: https://github.com/yarrick/iodine#tips--tricks |
