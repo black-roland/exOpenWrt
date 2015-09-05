@@ -38,7 +38,6 @@ endef
 
 define Package/dnscrypt-proxy-resolvers
 	$(call Package/dnscrypt-proxy/Default)
-	DEPENDS:=+dnscrypt-proxy
 	TITLE:=Package with actual list of dnscrypt-proxy resolvers
 endef
 
