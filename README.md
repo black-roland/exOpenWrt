@@ -27,8 +27,8 @@ Install packages:
     $ opkg install dnscrypt-proxy
 
 ## Differences with OpenWrt packages
-| Package        | Difference                                                                      |
-|----------------|---------------------------------------------------------------------------------|
-| dnscrypt-proxy | Newest version for Chaos Calmer. Barrier Breaker support.                       |
-| libsodium      | Newest version for Chaos Calmer. Barrier Breaker support.                       |
-| iodine         | Memory usage reduce patch. Info: https://github.com/yarrick/iodine#tips--tricks |
+| Package        | Difference                                                                                                                                   |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| dnscrypt-proxy | Newest version for Chaos Calmer. Barrier Breaker support. Procd support and possibility of launching multiple instances (thanks to @spitsw). |
+| libsodium      | Newest version for Chaos Calmer. Barrier Breaker support.                                                                                    |
+| iodine         | Memory usage reduce patch. Info: https://github.com/yarrick/iodine#tips--tricks                                                              |
