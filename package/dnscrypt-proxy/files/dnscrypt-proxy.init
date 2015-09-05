@@ -18,7 +18,7 @@ dnscrypt_instance() {
 	procd_append_param command -a "$address:$port"
 	procd_append_param command -L $resolvers_list
 	procd_append_param command -R $resolver
-	[ $ephemeral_keys -eq 1 ] && procd_append_param command --ephemeral-keys
+	[ $ephemeral_keys -eq 1 ] && procd_append_param command -E
 	procd_close_instance
 }
 
