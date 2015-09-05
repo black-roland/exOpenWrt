@@ -14,17 +14,17 @@ PKG_FIXUP:=autoreconf
 include $(INCLUDE_DIR)/package.mk
 
 define Package/dnscrypt-proxy/Default
-  SECTION:=net
-  CATEGORY:=Network
-  SUBMENU:=IP Addresses and Names
-  DEPENDS:=+libsodium
-  URL:=http://dnscrypt.org/
-  MAINTAINER:=Black Roland (https://github.com/black-roland/exOpenWrt)
+	SECTION:=net
+	CATEGORY:=Network
+	SUBMENU:=IP Addresses and Names
+	URL:=http://dnscrypt.org/
+	MAINTAINER:=Black Roland (https://github.com/black-roland/exOpenWrt)
 endef
 
 define Package/dnscrypt-proxy
-  $(call Package/dnscrypt-proxy/Default)
-  TITLE:=A tool for securing communications between a client and a DNS resolver
+	$(call Package/dnscrypt-proxy/Default)
+	DEPENDS:=+libsodium +dnscrypt-proxy-resolvers
+	TITLE:=A tool for securing communications between a client and a DNS resolver
 endef
 
 define Package/dnscrypt-proxy/description
@@ -36,9 +36,20 @@ define Package/dnscrypt-proxy/description
 	a client and its first-level resolver.
 endef
 
+define Package/dnscrypt-proxy-resolvers
+	$(call Package/dnscrypt-proxy/Default)
+	DEPENDS:=+dnscrypt-proxy
+	TITLE:=Package with actual list of dnscrypt-proxy resolvers
+endef
+
+define Package/dnscrypt-proxy-resolvers/description
+	Package with actual list of dnscrypt-proxy resolvers.
+endef
+
 define Package/hostip
-  $(call Package/dnscrypt-proxy/Default)
-  TITLE:=Resolver to IPv4 or IPv6 addresses
+	$(call Package/dnscrypt-proxy/Default)
+	TITLE:=Resolver to IPv4 or IPv6 addresses
+	DEPENDS:=+libsodium
 endef
 
 define Package/hostip/description
@@ -68,12 +79,15 @@ MAKE_FLAGS += \
 define Package/dnscrypt-proxy/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(CP) $(PKG_INSTALL_DIR)/usr/sbin/dnscrypt-proxy $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/usr/share/dnscrypt-proxy
-	$(CP) $(PKG_INSTALL_DIR)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv $(1)/usr/share/dnscrypt-proxy/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/dnscrypt-proxy.init $(1)/etc/init.d/dnscrypt-proxy
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_CONF) ./files/dnscrypt-proxy.config $(1)/etc/config/dnscrypt-proxy
+endef
+
+define Package/dnscrypt-proxy-resolvers/install
+	$(INSTALL_DIR) $(1)/usr/share/dnscrypt-proxy
+	$(CP) ./files/dnscrypt-resolvers-d13e2bc.csv $(1)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
 endef
 
 define Package/dnscrypt-proxy/conffiles
@@ -86,4 +100,5 @@ define Package/hostip/install
 endef
 
 $(eval $(call BuildPackage,dnscrypt-proxy))
+$(eval $(call BuildPackage,dnscrypt-proxy-resolvers))
 $(eval $(call BuildPackage,hostip))
