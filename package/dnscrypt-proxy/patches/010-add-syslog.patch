@@ -1,0 +1,157 @@
+From 92794fa193eafeb9aa4c2537feb644e5135feb80 Mon Sep 17 00:00:00 2001
+From: Frank Denis <github@pureftpd.org>
+Date: Sun, 19 Jul 2015 11:53:31 +0200
+Subject: [PATCH] Add -S/--syslog via @zedinosaur
+
+---
+ man/dnscrypt-proxy.8          |  3 +++
+ man/dnscrypt-proxy.8.markdown |  3 +++
+ src/proxy/dnscrypt_proxy.h    |  1 +
+ src/proxy/logger.c            |  6 +++---
+ src/proxy/options.c           | 22 +++++++++++++++++++---
+ 5 files changed, 29 insertions(+), 6 deletions(-)
+
+diff --git a/man/dnscrypt-proxy.8 b/man/dnscrypt-proxy.8
+index 0bc6ddc..7a9d2c0 100644
+--- a/man/dnscrypt-proxy.8
++++ b/man/dnscrypt-proxy.8
+@@ -72,6 +72,9 @@ Intead, run a DNS cache like \fBUnbound\fR, and configure it to use \fBdnscrypt\
+ \fB\-r\fR, \fB\-\-resolver\-address=<ip>[:port]\fR: a DNSCrypt\-capable resolver IP address with an optional port\. The default port is 443\.
+ .
+ .IP "\(bu" 4
++\-S, \-\-syslog: if a log file hasn\'t been set, log diagnostic messages to syslog instead of printing them\. \-\-daemonize implies \-\-syslog\.
++.
++.IP "\(bu" 4
+ \fB\-t\fR, \fB\-\-test=<margin>\fR: don\'t actually start the proxy, but check that a valid certificate can be retrieved from the server and that it will remain valid for the next \fImargin\fR minutes\. The exit code is 0 if a valid certificate can be used, 2 if no valid certificates can be used, 3 if a timeout occurred, and 4 if a currently valid certificate is going to expire before \fImargin\fR\. The margin is always specificied in minutes\.
+ .
+ .IP "\(bu" 4
+diff --git a/man/dnscrypt-proxy.8.markdown b/man/dnscrypt-proxy.8.markdown
+index 8aab244..9df03bf 100644
+--- a/man/dnscrypt-proxy.8.markdown
++++ b/man/dnscrypt-proxy.8.markdown
+@@ -83,6 +83,9 @@ ports.
+   * `-r`, `--resolver-address=<ip>[:port]`: a DNSCrypt-capable resolver IP
+     address with an optional port. The default port is 443.
+ 
++  * -S, --syslog: if a log file hasn't been set, log diagnostic messages to
++    syslog instead of printing them. --daemonize implies --syslog.
++
+   * `-t`, `--test=<margin>`: don't actually start the proxy, but check that
+     a valid certificate can be retrieved from the server and that it
+     will remain valid for the next <margin> minutes. The exit code is 0
+diff --git a/src/proxy/dnscrypt_proxy.h b/src/proxy/dnscrypt_proxy.h
+index bcfa22e..4847de9 100644
+--- a/src/proxy/dnscrypt_proxy.h
++++ b/src/proxy/dnscrypt_proxy.h
+@@ -129,6 +129,7 @@ typedef struct ProxyContext_ {
+     _Bool                    daemonize;
+     _Bool                    ephemeral_keys;
+     _Bool                    listeners_started;
++    _Bool                    syslog;
+     _Bool                    tcp_only;
+     _Bool                    test_only;
+ } ProxyContext;
+diff --git a/src/proxy/logger.c b/src/proxy/logger.c
+index ffe563b..5d16b9c 100644
+--- a/src/proxy/logger.c
++++ b/src/proxy/logger.c
+@@ -27,7 +27,7 @@
+ int
+ logger_open_syslog(struct ProxyContext_ * const context)
+ {
+-    assert(context->daemonize != 0);
++    assert(context->syslog != 0);
+ #ifndef _WIN32
+     openlog(PACKAGE_TARNAME, LOG_NDELAY | LOG_PID, LOG_DAEMON);
+ #endif
+@@ -88,7 +88,7 @@ logger(struct ProxyContext_ * const context,
+     }
+     line[len++] = 0;
+ #ifndef _WIN32
+-    if (context != NULL && context->log_fp == NULL && context->daemonize) {
++    if (context != NULL && context->log_fp == NULL && context->syslog != 0) {
+         syslog(crit, "%s", line);
+         return 0;
+     }
+@@ -147,7 +147,7 @@ int
+ logger_close(struct ProxyContext_ * const context)
+ {
+ #ifndef _WIN32
+-    if (context->daemonize) {
++    if (context->syslog != 0) {
+         closelog();
+     }
+ #endif
+diff --git a/src/proxy/options.c b/src/proxy/options.c
+index 5c55c03..00913a8 100644
+--- a/src/proxy/options.c
++++ b/src/proxy/options.c
+@@ -53,6 +53,9 @@ static struct option getopt_long_options[] = {
+     { "provider-name", 1, NULL, 'N' },
+     { "provider-key", 1, NULL, 'k' },
+     { "resolver-address", 1, NULL, 'r' },
++#ifndef _WIN32
++    { "syslog", 0, NULL, 'S' },
++#endif
+     { "user", 1, NULL, 'u' },
+     { "test", 1, NULL, 't' },
+     { "tcp-only", 0, NULL, 'T' },
+@@ -65,7 +68,7 @@ static struct option getopt_long_options[] = {
+     { NULL, 0, NULL, 0 }
+ };
+ #ifndef _WIN32
+-static const char *getopt_options = "a:de:Ehk:K:L:l:m:n:p:r:R:t:u:N:TVX";
++static const char *getopt_options = "a:de:Ehk:K:L:l:m:n:p:r:R:St:u:N:TVX";
+ #else
+ static const char *getopt_options = "a:e:Ehk:K:L:l:m:n:r:R:t:u:N:TVX";
+ #endif
+@@ -119,6 +122,7 @@ void options_init_with_default(AppContext * const app_context,
+     proxy_context->provider_name = NULL;
+     proxy_context->provider_publickey_s = NULL;
+     proxy_context->resolver_ip = NULL;
++    proxy_context->syslog = 0;
+ #ifndef _WIN32
+     proxy_context->user_id = (uid_t) 0;
+     proxy_context->user_group = (uid_t) 0;
+@@ -462,7 +466,10 @@ options_apply(ProxyContext * const proxy_context)
+         logger_noformat(proxy_context, LOG_ERR, "Invalid provider key");
+         exit(1);
+     }
+-    if (proxy_context->daemonize) {
++    if (proxy_context->daemonize != 0) {
++        if (proxy_context->log_file == NULL) {
++            proxy_context->syslog = 1;
++        }
+         do_daemonize();
+     }
+ #ifndef _WIN32
+@@ -473,12 +480,18 @@ options_apply(ProxyContext * const proxy_context)
+         exit(1);
+     }
+ #endif
++    if (proxy_context->log_file != NULL && proxy_context->syslog != 0) {
++        logger_noformat(proxy_context, LOG_ERR,
++                        "--logfile and --syslog are mutually exclusive");
++        exit(1);
++    }
+     if (proxy_context->log_file != NULL &&
+         (proxy_context->log_fp = fopen(proxy_context->log_file, "a")) == NULL) {
+         logger_error(proxy_context, "Unable to open log file");
+         exit(1);
+     }
+-    if (proxy_context->log_fp == NULL && proxy_context->daemonize) {
++    if (proxy_context->syslog != 0) {
++        assert(proxy_context->log_fp == NULL);
+         logger_open_syslog(proxy_context);
+     }
+     return 0;
+@@ -550,6 +563,9 @@ options_parse(AppContext * const app_context,
+         case 'R':
+             proxy_context->resolver_name = optarg;
+             break;
++        case 'S':
++            proxy_context->syslog = 1;
++            break;
+         case 'm': {
+             char *endptr;
+             const long max_log_level = strtol(optarg, &endptr, 10);

@@ -14,7 +14,7 @@ dnscrypt_instance() {
 	config_get_bool ephemeral_keys $1 'ephemeral_keys' '1'
 
 	procd_open_instance
-	procd_set_param    command $PROG -u nobody
+	procd_set_param    command $PROG -u nobody -S
 	procd_append_param command -a "$address:$port"
 	procd_append_param command -L $resolvers_list
 	procd_append_param command -R $resolver
