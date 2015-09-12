@@ -12,7 +12,7 @@ OpenWrt repository with additional and custom packages.
     cd /tmp
     wget 'http://exopenwrt.and.in.net/exopenwrt.pub'
     opkg-key add exopenwrt.pub
-    echo 'src/gz exopenwrt http://exopenwrt.and.in.net/chaos_calmer/15.05-rc3/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
+    echo 'src/gz exopenwrt http://exopenwrt.and.in.net/chaos_calmer/15.05/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
 
 **Barrier Breaker**
 
