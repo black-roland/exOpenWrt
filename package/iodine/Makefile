@@ -1,5 +1,6 @@
 #
-# Copyright (C) 2006-2011 OpenWrt.org
+# Copyright (C) 2013-2015 Black Roland and contributors (https://github.com/black-roland/exOpenWrt/graphs/contributors)
+# Copyright (C) 2006-2013 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -15,7 +16,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://code.kryo.se/iodine/
 PKG_MD5SUM:=fdbf3b81cd69caf5230d76a8b039fd99
 
-PKG_MAINTAINER:=Uwe Kleine-König <uwe+openwrt@kleine-koenig.org>
+PKG_MAINTAINER:=Black Roland (https://github.com/black-roland/exOpenWrt)
 PKG_LICENSE:=ISC
 PKG_LICENSE_FILES:=README
 
