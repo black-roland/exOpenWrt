@@ -10,13 +10,13 @@ OpenWrt repository with additional and custom packages.
 **Chaos Calmer**
 
     cd /tmp
-    wget 'http://exopenwrt.rlnd.black/exopenwrt.pub'
+    wget 'http://exopenwrt.roland.black/exopenwrt.pub'
     opkg-key add exopenwrt.pub
-    echo 'src/gz exopenwrt http://exopenwrt.rlnd.black/chaos_calmer/15.05/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
+    echo 'src/gz exopenwrt http://exopenwrt.roland.black/chaos_calmer/15.05/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
 
 **Barrier Breaker**
 
-    echo 'src/gz exopenwrt http://exopenwrt.rlnd.black/barrier_breaker/14.07/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
+    echo 'src/gz exopenwrt http://exopenwrt.roland.black/barrier_breaker/14.07/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
 
 Update list of available packages:
 
