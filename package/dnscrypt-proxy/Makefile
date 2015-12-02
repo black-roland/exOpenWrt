@@ -94,7 +94,7 @@ endef
 
 define Package/dnscrypt-proxy-resolvers/install
 	$(INSTALL_DIR) $(1)/usr/share/dnscrypt-proxy
-	$(CP) ./files/dnscrypt-resolvers-f4d6137.csv $(1)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+	$(CP) ./files/dnscrypt-resolvers-9e99855.csv $(1)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
 endef
 
 define Package/dnscrypt-proxy/conffiles
