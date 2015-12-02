@@ -1,20 +1,31 @@
 # Extended OpenWrt repository
-OpenWrt repository with additional and custom packages.
+
+OpenWrt repository with additional and patched packages.
 
 ## Packages
-[**dnscrypt-proxy**](https://dnscrypt.org/) — A tool for securing communications between a client and a DNS resolver.
 
-[**iodine**](http://code.kryo.se/iodine/) — Tunnel IPv4 over DNS. Depends on *kmod-tun* — install manually.
+#### [dnscrypt-proxy](https://dnscrypt.org/)
+
+A tool for securing communications between a client and a DNS resolver.
+
+*Note*: Ephemeral keys option requires extra CPU cycles and can cause huge system load. Disable it in case of performance problems ([#15](https://github.com/black-roland/exOpenWrt/issues/15)).
+
+#### [iodine](http://code.kryo.se/iodine/)
+
+Tunnel IPv4 over DNS.
+
+*Note*: Depends on **kmod-tun** package — install separately.
 
 ## Software repository for ar71xx devices
-**Chaos Calmer**
+
+#### Chaos Calmer
 
     cd /tmp
     wget 'http://exopenwrt.roland.black/exopenwrt.pub'
     opkg-key add exopenwrt.pub
     echo 'src/gz exopenwrt http://exopenwrt.roland.black/chaos_calmer/15.05/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
 
-**Barrier Breaker**
+#### Barrier Breaker
 
     echo 'src/gz exopenwrt http://exopenwrt.roland.black/barrier_breaker/14.07/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
 
@@ -27,8 +38,9 @@ Install packages:
     $ opkg install dnscrypt-proxy
 
 ## Differences with OpenWrt packages
-| Package        | Difference                                                                                                                                   |
-|----------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| dnscrypt-proxy | Newest version for Chaos Calmer. Barrier Breaker support. Procd support and possibility of launching multiple instances (thanks to @spitsw). |
-| libsodium      | Newest version for Chaos Calmer. Barrier Breaker support.                                                                                    |
-| iodine         | Memory usage reduce patch. Info: https://github.com/yarrick/iodine#tips--tricks                                                              |
+
+| Package        | Difference                                                                                                                                                                |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dnscrypt-proxy | Newest version for Chaos Calmer. Barrier Breaker support. Procd support and possibility of launching multiple instances (thanks to [@spitsw](https://github.com/spitsw)). |
+| libsodium      | Newest version for Chaos Calmer. Barrier Breaker support.                                                                                                                 |
+| iodine         | Memory usage reduce patch. Info: https://github.com/yarrick/iodine#tips--tricks                                                                                           |
