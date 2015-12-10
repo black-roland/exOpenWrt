@@ -47,6 +47,7 @@ endef
 define Package/dnscrypt-proxy-resolvers
 	$(call Package/dnscrypt-proxy/Default)
 	TITLE:=Package with actual list of dnscrypt-proxy resolvers
+	VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)-2015-12-10-1404bd6
 endef
 
 define Package/dnscrypt-proxy-resolvers/description
@@ -94,7 +95,7 @@ endef
 
 define Package/dnscrypt-proxy-resolvers/install
 	$(INSTALL_DIR) $(1)/usr/share/dnscrypt-proxy
-	$(CP) ./files/dnscrypt-resolvers-9e99855.csv $(1)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+	$(CP) ./files/dnscrypt-resolvers.csv $(1)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
 endef
 
 define Package/dnscrypt-proxy/conffiles
