@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnscrypt-proxy
 PKG_VERSION:=1.6.0
-PKG_RELEASE:=7.E
+PKG_RELEASE:=8.E
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://download.dnscrypt.org/dnscrypt-proxy/
