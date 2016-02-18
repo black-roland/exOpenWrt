@@ -18,6 +18,13 @@ Tunnel IPv4 over DNS.
 
 ## Software repository for ar71xx devices
 
+#### Trunk
+
+    cd /tmp
+    uclient-fetch 'http://exopenwrt.roland.black/exopenwrt.pub'
+    opkg-key add exopenwrt.pub
+    echo 'src/gz exopenwrt http://exopenwrt.roland.black/snapshots/trunk/ar71xx/packages/exopenwrt' >> /etc/opkg/customfeeds.conf
+
 #### Chaos Calmer
 
     cd /tmp
