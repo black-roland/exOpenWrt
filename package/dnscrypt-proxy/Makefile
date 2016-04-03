@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012-2015 Black Roland and contributors (https://github.com/black-roland/exOpenWrt/graphs/contributors)
+# Copyright (C) 2012-2016 Black Roland and contributors (https://github.com/black-roland/exOpenWrt/graphs/contributors)
 # Copyright (C) 2011-2012 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
