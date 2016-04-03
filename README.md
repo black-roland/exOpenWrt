@@ -30,7 +30,7 @@ Tunnel IPv4 over DNS.
     cd /tmp
     wget 'http://exopenwrt.roland.black/exopenwrt.pub'
     opkg-key add exopenwrt.pub
-    echo 'src/gz exopenwrt http://exopenwrt.roland.black/chaos_calmer/15.05/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
+    echo 'src/gz exopenwrt http://exopenwrt.roland.black/chaos_calmer/15.05.1/ar71xx/packages/exopenwrt' >> /etc/opkg.conf
 
 #### Barrier Breaker
 
