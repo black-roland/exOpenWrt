@@ -9,9 +9,9 @@ dnscrypt_instance() {
 
 	config_get      address        $1 'address'
 	config_get      port           $1 'port'
-	config_get      resolver       $1 'resolver' 'cisco'
+	config_get      resolver       $1 'resolver' 'fvz-anyone'
 	config_get      resolvers_list $1 'resolvers_list' '/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv'
-	config_get_bool ephemeral_keys $1 'ephemeral_keys' '1'
+	config_get_bool ephemeral_keys $1 'ephemeral_keys' '0'
 
 	procd_open_instance
 	procd_set_param    command $PROG -u nobody -S
