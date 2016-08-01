@@ -39,7 +39,8 @@ endef
 CONFIGURE_ARGS += \
 	--disable-ssp \
 	--disable-asm \
-	--enable-minimal
+	--enable-minimal \
+        --without-pthreads
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include $(1)/usr/lib
