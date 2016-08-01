@@ -8,8 +8,6 @@ OpenWrt repository with additional and patched packages.
 
 A tool for securing communications between a client and a DNS resolver.
 
-*Note*: Ephemeral keys option requires extra CPU cycles and can cause huge system load. Disable it in case of performance problems ([#15](https://github.com/black-roland/exOpenWrt/issues/15)).
-
 #### [iodine](http://code.kryo.se/iodine/)
 
 Tunnel IPv4 over DNS.
