@@ -69,6 +69,7 @@ define Build/Configure
 	$(call Build/Configure/Default, \
 		--prefix=/usr \
 		--disable-ssp \
+		--disable-plugins \
 	)
 endef
 
