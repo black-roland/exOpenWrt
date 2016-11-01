@@ -5,20 +5,35 @@ USE_PROCD=1
 PROG=/usr/sbin/dnscrypt-proxy
 
 dnscrypt_instance() {
-	local address port resolver resolvers_list ephemeral_keys
+	local address port resolver resolvers_list ephemeral_keys client_key tcp_only ignore_timestamps resolver_address provider_name provider_key
 
-	config_get      address        $1 'address'
-	config_get      port           $1 'port'
-	config_get      resolver       $1 'resolver' 'fvz-anyone'
-	config_get      resolvers_list $1 'resolvers_list' '/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv'
-	config_get_bool ephemeral_keys $1 'ephemeral_keys' '0'
+	config_get      address           $1 'address'
+	config_get      port              $1 'port'
+	config_get      resolver          $1 'resolver' 'fvz-anyone'
+	config_get      resolvers_list    $1 'resolvers_list' '/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv'
+	config_get      resolver_address  $1 'resolver_address'
+	config_get      provider_name     $1 'provider_name'
+	config_get      provider_key      $1 'provider_key'
+	config_get_bool ephemeral_keys    $1 'ephemeral_keys' '0'
+	config_get      client_key        $1 'client_key'
+	config_get_bool tcp_only          $1 'tcp_only' '0'
+	config_get_bool ignore_timestamps $1 'ignore_timestamps' '0'
 
 	procd_open_instance
 	procd_set_param    command $PROG -u nobody -S
 	procd_append_param command -a "$address:$port"
-	procd_append_param command -L $resolvers_list
-	procd_append_param command -R $resolver
-	[ $ephemeral_keys -eq 1 ] && procd_append_param command -E
+	procd_append_param command -L "$resolvers_list"
+	if [ -n "$resolver_address" ]; then
+		procd_append_param command -r "$resolver_address"
+		procd_append_param command -N "$provider_name"
+		procd_append_param command -k "$provider_key"
+	else
+		procd_append_param command -R "$resolver"
+	fi
+	[ "$ephemeral_keys" -eq 1 ] && procd_append_param command -E
+	[ -n "$client_key" ] && procd_append_param command -K "$client_key"
+	[ "$tcp_only" -eq 1 ] && procd_append_param command -T
+	[ "$ignore_timestamps" -eq 1 ] && procd_append_param command -I
 	procd_close_instance
 }
 
