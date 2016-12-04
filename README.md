@@ -8,6 +8,8 @@ OpenWrt repository with additional and patched packages.
 
 A tool for securing communications between a client and a DNS resolver.
 
+*Note*: Latest dnscrypt-proxy [merged to upstream](https://github.com/openwrt/packages/commits/master/net/dnscrypt-proxy) (Designated Driver).
+
 #### [iodine](http://code.kryo.se/iodine/)
 
 Tunnel IPv4 over DNS.
